@@ -7,15 +7,12 @@ dist-electron/
 dist-renderer/
 release/
 
-# Generated-per-domain (materialized by scripts/apply-domain.mjs)
-backend/seed.generated.ts
-backend/logo.ts
-renderer/src/catalog-meta.ts
-renderer/src/assets/active-logo.*
-renderer/src/brand.generated.css
-
-# Generated docs views
-docs/adr/0*-*.generated.md
+# NOTE: the per-domain generated files (backend/seed.generated.ts, backend/logo.ts,
+# renderer/src/catalog-meta.ts, renderer/src/brand.generated.css, renderer/src/assets/active-logo.svg)
+# are COMMITTED on purpose. They are import-time dependencies, so a fresh checkout must build
+# without first running a generate step. They carry an "AUTO-GENERATED" header; switching domains
+# (scripts/apply-domain.mjs) overwrites them, and `npm run verify:generated` guards against drift —
+# the same generate-and-check pattern used for ADRs (scripts/gen-adrs.mjs --check).
 
 # Local data / runtime
 *.db

@@ -2,6 +2,19 @@
 
 All notable changes to the Local-First App Kit are documented here.
 
+## [0.6.1] — 2026-06-06 — Fresh-checkout build fixes
+
+### Fixed
+- **`renderer/src/index.css`**: `@import "./brand.generated.css"` came after the `@tailwind`
+  directives (invalid CSS — "@import must precede all other statements"), and the fallback `:root`
+  overrode the generated brand colors. The generated CSS is now imported (unlayered) from
+  `main.tsx`, and the fallback moved into `@layer base`, so per-domain brand colors win.
+- **Missing generated files on a clean checkout** ("Could not resolve ./catalog-meta"). The
+  per-domain generated files (`seed.generated.ts`, `logo.ts`, `catalog-meta.ts`,
+  `brand.generated.css`, `active-logo.svg`) are import-time dependencies and are now **committed**
+  (generated for the default `okc-barber` pack), matching the committed-but-generated pattern
+  already used for ADRs. New `verify:generated` task guards against drift from the active pack.
+
 ## [0.6.0] — 2026-06-06 — OKC Edition: full implementation
 
 The kit goes from spec to a working application, tailored to Oklahoma City small businesses.

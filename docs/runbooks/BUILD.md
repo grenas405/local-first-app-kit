@@ -16,12 +16,14 @@ Prerequisites: **Deno 2.x**, **Node 20+**, **npm**. Windows is the packaging tar
 
 ```sh
 npm install                       # renderer + electron deps
-node scripts/apply-domain.mjs     # materialize the active pack (kit.config.json)
 deno cache backend/server.ts      # warm the Deno module cache
 ```
 
-`apply-domain` must run before the backend/renderer build — it generates `seed.generated.ts`,
-`catalog-meta.ts`, the brand CSS, and the logo, all of which are git-ignored.
+The per-domain generated files (`seed.generated.ts`, `logo.ts`, `catalog-meta.ts`,
+`brand.generated.css`, `active-logo.svg`) are **committed** — they are import-time dependencies, so
+a fresh checkout builds with no generate step. To switch storefronts, run
+`node scripts/apply-domain.mjs <pack>` (it overwrites them) and commit the result;
+`npm run verify:generated` fails if the committed output drifts from the active pack.
 
 ## Develop
 

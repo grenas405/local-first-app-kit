@@ -1,6 +1,6 @@
 {
   "name": "local-first-app-kit",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Local-First App Kit — domain-agnostic local-first desktop POS template (Electron shell + Deno/Hono backend + Vite/React UI). Apply one domainPack (flower shop, detail shop, barber shop, hair salon, tire shop, …) to brand it.",
   "author": "",
   "license": "UNLICENSED",
@@ -18,7 +18,8 @@
     "rebuild:backend": "deno task build:backend",
     "docs:check": "node scripts/validate-docs.mjs && node scripts/gen-adrs.mjs --check",
     "docs:adrs": "node scripts/gen-adrs.mjs",
-    "domain:apply": "node scripts/apply-domain.mjs"
+    "domain:apply": "node scripts/apply-domain.mjs",
+    "verify:generated": "node scripts/apply-domain.mjs && git diff --exit-code -- backend/seed.generated.ts backend/logo.ts renderer/src/catalog-meta.ts renderer/src/brand.generated.css renderer/src/assets/active-logo.svg"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

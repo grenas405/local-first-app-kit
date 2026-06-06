@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://local-first-app-kit/docs/spec/instructions.schema.json",
+  "title": "Local-First App Kit — AI Build Spec",
+  "description": "Schema for instructions.json, the machine-readable build spec consumed by LLM coding agents. Validated in CI via scripts/validate-docs.mjs so the spec can never silently drift into an unparseable shape.",
+  "type": "object",
+  "required": [
+    "spec",
+    "specVersion",
+    "purpose",
+    "architecture",
+    "techStack",
+    "constraints",
+    "dataModel",
+    "api",
+    "domainPacks"
+  ],
+  "properties": {
+    "spec": { "type": "string" },
+    "specVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "audience": { "type": "string" },
+    "purpose": { "type": "string" },
+    "howToUse": { "type": "array", "items": { "type": "string" } },
+    "architecture": {
+      "type": "object",
+      "required": ["pattern", "processes"],
+      "properties": {
+        "pattern": { "type": "string" },
+        "processes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "runtime", "responsibilities"],
+            "properties": {
+              "name": { "type": "string" },
+              "runtime": { "type": "string" },
+              "responsibilities": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "boundaries": { "type": "array", "items": { "type": "string" } },
+        "packaging": { "type": "string" }
+      }
+    },
+    "techStack": { "type": "object" },
+    "constraints": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The living log of real bugs. Each entry must become an ADR (docs/adr/).",
+      "items": {
+        "type": "object",
+        "required": ["id", "rule", "why"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "rule": { "type": "string" },
+          "why": { "type": "string" }
+        }
+      }
+    },
+    "projectStructure": { "type": "object" },
+    "dataModel": {
+      "type": "object",
+      "required": ["settings", "catalog_items", "sales", "sale_line_items"],
+      "properties": {
+        "settings": { "type": "string" },
+        "catalog_items": { "type": "string" },
+        "sales": { "type": "string" },
+        "sale_line_items": { "type": "string" }
+      }
+    },
+    "api": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["method", "path", "desc"],
+        "properties": {
+          "method": { "type": "string", "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"] },
+          "path": { "type": "string", "pattern": "^/" },
+          "desc": { "type": "string" }
+        }
+      }
+    },
+    "coreFeatures": { "type": "object" },
+    "domainModel": { "type": "object" },
+    "domainPacks": {
+      "type": "object",
+      "description": "Reference pack definitions. The executable, validated packs live in domains/*/pack.json.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["appName", "categories", "seedCatalog"],
+        "properties": {
+          "appName": { "type": "string" },
+          "registerLabel": { "type": "string" },
+          "categories": { "type": "array", "items": { "type": "string" } },
+          "seedCatalog": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "category", "price_cents"],
+              "properties": {
+                "name": { "type": "string" },
+                "category": { "type": "string" },
+                "price_cents": { "type": "integer" },
+                "taxable": { "type": "boolean" }
+              }
+            }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "buildWorkflow": { "type": "object" },
+    "verification": { "type": "object" },
+    "implementationSteps": { "type": "array", "items": { "type": "string" } },
+    "acceptanceCriteria": { "type": "array", "items": { "type": "string" } },
+    "referenceImplementation": { "type": "string" }
+  }
+}

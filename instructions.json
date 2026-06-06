@@ -143,6 +143,11 @@
       "id": "node-sqlite-row-typing",
       "rule": "node:sqlite .all()/.get() return Record<string, SQLOutputValue>. Cast typed rows through unknown first: 'stmt.all() as unknown as Row[]'. Coerce money columns with Number() at the boundary if doing arithmetic.",
       "why": "TypeScript rejects a direct cast from the SQLOutputValue record to a named interface ('neither type sufficiently overlaps'). Casting via unknown is the intended escape hatch."
+    },
+    {
+      "id": "oklahoma-per-item-tax",
+      "rule": "Tax is per-line, not per-sale. catalog_items and sale_line_items carry a taxable (0/1) column (added via addColumnIfMissing, default 1). computeTotals() sums the tax base over taxable lines ONLY, then applies the single tax_rate. Snapshot taxable into sale_line_items at sale time.",
+      "why": "Oklahoma taxes tangible retail goods but exempts most personal services (haircuts, beard trims, salon services). A flat rate over the whole subtotal over-charges tax on exempt service lines, which is a real compliance problem for barber/salon/detail domains. A mixed cart (taxable retail + exempt service) must tax only the retail portion."
     }
   ],
 

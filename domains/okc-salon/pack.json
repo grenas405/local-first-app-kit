@@ -1,0 +1,29 @@
+{
+  "pack": "okc-salon",
+  "appName": "Midtown Salon OKC",
+  "appId": "com.example.okcsalon",
+  "registerLabel": "Checkout",
+  "brand": { "from": "#831843", "via": "#be185d", "to": "#f9a8d4" },
+  "settings": {
+    "business_name": "Midtown Salon OKC",
+    "business_address": "1200 N Walker Ave\nOklahoma City, OK 73103",
+    "business_phone": "(405) 555-0188",
+    "tax_rate": "0.08625",
+    "receipt_footer": "Thank you for visiting Midtown Salon!\nBook your next appointment online."
+  },
+  "categories": ["Haircuts", "Color", "Styling", "Treatments", "Add-ons", "Retail Products", "Fees"],
+  "colors": ["#be185d", "#831843", "#db2777", "#9d174d", "#f472b6", "#a21caf"],
+  "seedCatalog": [
+    { "name": "Women's Cut", "category": "Haircuts", "price_cents": 4500, "taxable": false },
+    { "name": "Men's Cut", "category": "Haircuts", "price_cents": 3000, "taxable": false },
+    { "name": "Root Color", "category": "Color", "price_cents": 7500, "taxable": false },
+    { "name": "Full Highlights", "category": "Color", "price_cents": 14000, "taxable": false },
+    { "name": "Blowout", "category": "Styling", "price_cents": 4000, "taxable": false },
+    { "name": "Updo / Special Occasion", "category": "Styling", "price_cents": 6500, "taxable": false },
+    { "name": "Deep Conditioning", "category": "Treatments", "price_cents": 2500, "taxable": false },
+    { "name": "Scalp Treatment", "category": "Add-ons", "price_cents": 2000, "taxable": false },
+    { "name": "Shampoo (Retail)", "category": "Retail Products", "price_cents": 2200, "taxable": true },
+    { "name": "Styling Spray (Retail)", "category": "Retail Products", "price_cents": 1900, "taxable": true }
+  ],
+  "notes": "Oklahoma: salon services are exempt; take-home retail products are taxable. Appointments are out of core scope (POS only)."
+}

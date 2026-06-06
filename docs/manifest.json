@@ -1,0 +1,279 @@
+{
+  "$comment": "Machine index of the documentation product. scripts/validate-docs.mjs asserts a 1:1 mapping between this list and docs/**/*.md, and that each doc's frontmatter is conformant. Humans use docs/INDEX.md instead.",
+  "generatedBy": "hand-maintained at M1; expands as tiers land",
+  "docs": [
+    {
+      "path": "docs/INDEX.md",
+      "tier": 0,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Human map of every doc, grouped by tier."
+    },
+    {
+      "path": "docs/AGENTS.md",
+      "tier": 1,
+      "audience": [
+        "ai",
+        "human"
+      ],
+      "summary": "Entry point + read order + constraints-as-law for AI agents."
+    },
+    {
+      "path": "docs/meta/DOCUMENTATION.md",
+      "tier": 0,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "The doc about the docs: tiers, authority rule, verification."
+    },
+    {
+      "path": "docs/meta/FRONTMATTER.md",
+      "tier": 0,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "The dual-audience frontmatter contract the validator enforces."
+    },
+    {
+      "path": "docs/meta/STYLE.md",
+      "tier": 0,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Voice, diagrams-as-text, money/time/term conventions."
+    },
+    {
+      "path": "docs/spec/GLOSSARY.md",
+      "tier": 1,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Domain vocabulary mapped onto the fixed core schema."
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE.md",
+      "tier": 2,
+      "audience": ["human", "ai"],
+      "summary": "Three-process design, trust boundaries, and how a sale flows."
+    },
+    {
+      "path": "docs/architecture/DATA-MODEL.md",
+      "tier": 2,
+      "audience": ["human", "ai"],
+      "summary": "Four-table schema, integer-cents money, line snapshots, per-item tax."
+    },
+    {
+      "path": "docs/domains/OKC-COMPLIANCE.md",
+      "tier": 4,
+      "audience": ["human", "ai"],
+      "summary": "OKC 8.625% breakdown and goods-vs-services taxability guidance."
+    },
+    {
+      "path": "docs/domains/PACKS.md",
+      "tier": 4,
+      "audience": ["human", "ai"],
+      "summary": "The four OKC packs, pack anatomy, and how to apply or author one."
+    },
+    {
+      "path": "docs/runbooks/BUILD.md",
+      "tier": 5,
+      "audience": ["human", "ai"],
+      "summary": "Fresh clone to dev app to packaged installer, with the domain-switch check."
+    },
+    {
+      "path": "docs/runbooks/RELEASE.md",
+      "tier": 5,
+      "audience": ["human", "ai"],
+      "summary": "Ordered release steps: version bump, changelog, compile, installer."
+    },
+    {
+      "path": "docs/runbooks/BACKUP-RESTORE.md",
+      "tier": 5,
+      "audience": ["human", "ai"],
+      "summary": "Where data lives, daily checkpoint+copy snapshots, and how to restore."
+    },
+    {
+      "path": "docs/runbooks/TROUBLESHOOTING.md",
+      "tier": 5,
+      "audience": ["human", "ai"],
+      "summary": "Symptom-to-cause table for the classic packaging traps."
+    },
+    {
+      "path": "docs/adr/0000-template.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "ADR template."
+    },
+    {
+      "path": "docs/adr/0001-money-integer-cents.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Store and compute all money as integer cents. Never use floats for currency."
+    },
+    {
+      "path": "docs/adr/0002-server-side-totals.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "The backend recomputes subtotal/tax/total from line items and the stored tax rate on every create. Never trust totals se…"
+    },
+    {
+      "path": "docs/adr/0003-local-day-grouping.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Store created_at as UTC ISO for display, but also store a separate sale_date = local YYYY-MM-DD and group/report by sale…"
+    },
+    {
+      "path": "docs/adr/0004-deno-compile-no-npm.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "The deno.json build:backend task MUST pass --no-npm and set \"nodeModulesDir\": \"none\"."
+    },
+    {
+      "path": "docs/adr/0005-windows-sidecar-no-console.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "The Windows backend exe MUST be compiled with deno compile --no-terminal, and Electron MUST spawn the packaged sidecar w…"
+    },
+    {
+      "path": "docs/adr/0006-commonjs-preload.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Compile electron/ (main + preload) as CommonJS, and write a dist-electron/package.json containing {\"type\":\"commonjs\"} du…"
+    },
+    {
+      "path": "docs/adr/0007-sqlite-backup-method.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "For backups, do NOT use 'VACUUM INTO' (unsupported by node:sqlite — attached-db limit is 0). Instead run PRAGMA wal_chec…"
+    },
+    {
+      "path": "docs/adr/0008-additive-migrations.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Schema changes are additive and idempotent: CREATE TABLE IF NOT EXISTS, plus an addColumnIfMissing(table,col,type) helpe…"
+    },
+    {
+      "path": "docs/adr/0009-localhost-only.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Bind the backend to 127.0.0.1 only. Pick a free ephemeral port at launch; the renderer learns it via a ?port= query para…"
+    },
+    {
+      "path": "docs/adr/0010-secure-electron.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "contextIsolation: true, nodeIntegration: false. Expose only an explicit, minimal API via contextBridge (e.g., window.app…"
+    },
+    {
+      "path": "docs/adr/0011-offline-charts.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Render charts/sparklines as inline SVG. Do not add a charting dependency."
+    },
+    {
+      "path": "docs/adr/0012-version-in-ui-and-changelog.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Inject the package.json version at build time (Vite define __APP_VERSION__) and show it subtly in the header + a Setting…"
+    },
+    {
+      "path": "docs/adr/0013-vite-relative-base.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Set \"base\": \"./\" in vite.config.ts so the built index.html references ./assets/... (relative), not /assets/... (absolute…"
+    },
+    {
+      "path": "docs/adr/0014-embed-binary-assets.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Any static asset the BACKEND serves (logo, images) must be embedded as a base64 data URI compiled into the exe — generat…"
+    },
+    {
+      "path": "docs/adr/0015-print-color-fidelity.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Receipts that use color (brand bars, logos) MUST set '-webkit-print-color-adjust: exact; print-color-adjust: exact;' and…"
+    },
+    {
+      "path": "docs/adr/0016-additive-settings-keys.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "A new settings key must be added in THREE places: (1) seed() defaults in db.ts, (2) the ALLOWED set in routes/settings.t…"
+    },
+    {
+      "path": "docs/adr/0017-node-sqlite-row-typing.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "node:sqlite .all()/.get() return Record<string, SQLOutputValue>. Cast typed rows through unknown first: 'stmt.all() as u…"
+    },
+    {
+      "path": "docs/adr/0018-oklahoma-per-item-tax.md",
+      "tier": 3,
+      "audience": [
+        "human",
+        "ai"
+      ],
+      "summary": "Tax is per-line, not per-sale. catalog_items and sale_line_items carry a taxable (0/1) column (added via addColumnIfMiss…"
+    }
+  ]
+}

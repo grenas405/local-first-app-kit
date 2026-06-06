@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-electron/
+dist-renderer/
+release/
+
+# Generated-per-domain (materialized by scripts/apply-domain.mjs)
+backend/seed.generated.ts
+backend/logo.ts
+renderer/src/catalog-meta.ts
+renderer/src/assets/active-logo.*
+renderer/src/brand.generated.css
+
+# Generated docs views
+docs/adr/0*-*.generated.md
+
+# Local data / runtime
+*.db
+*.db-shm
+*.db-wal
+backups/
+
+# Editor / OS
+.DS_Store
+*.log
+.vscode/
+.idea/

@@ -1,0 +1,5 @@
+{
+  "$comment": "The kit's single switch. Pick which OKC domain pack is active; scripts/apply-domain.mjs reads this (or an argv override) to materialize backend/seed.generated.ts, renderer/src/catalog-meta.ts, brand CSS vars, and the embedded logo. The CORE source never changes between domains.",
+  "activeDomain": "okc-barber",
+  "domainsDir": "domains"
+}

@@ -1,0 +1,28 @@
+{
+  "pack": "okc-flower",
+  "appName": "Paseo Petals",
+  "appId": "com.example.okcflower",
+  "registerLabel": "Checkout",
+  "brand": { "from": "#14532d", "via": "#15803d", "to": "#86efac" },
+  "settings": {
+    "business_name": "Paseo Petals",
+    "business_address": "3000 Paseo St\nOklahoma City, OK 73103",
+    "business_phone": "(405) 555-0173",
+    "tax_rate": "0.08625",
+    "receipt_footer": "Fresh from the Paseo Arts District.\nThank you for supporting local!"
+  },
+  "categories": ["Bouquets", "Arrangements", "Single Stems", "Plants", "Add-ons", "Delivery", "Fees"],
+  "colors": ["#15803d", "#14532d", "#16a34a", "#166534", "#4ade80", "#65a30d"],
+  "seedCatalog": [
+    { "name": "Dozen Roses", "category": "Bouquets", "price_cents": 6500, "taxable": true },
+    { "name": "Mixed Bouquet", "category": "Bouquets", "price_cents": 4500, "taxable": true },
+    { "name": "Custom Arrangement", "category": "Arrangements", "price_cents": 8500, "taxable": true },
+    { "name": "Sympathy Arrangement", "category": "Arrangements", "price_cents": 9500, "taxable": true },
+    { "name": "Single Stem Rose", "category": "Single Stems", "price_cents": 500, "taxable": true },
+    { "name": "Potted Plant", "category": "Plants", "price_cents": 3000, "taxable": true },
+    { "name": "Greeting Card", "category": "Add-ons", "price_cents": 600, "taxable": true },
+    { "name": "Vase Upgrade", "category": "Add-ons", "price_cents": 1200, "taxable": true },
+    { "name": "Local Delivery", "category": "Delivery", "price_cents": 1500, "taxable": false }
+  ],
+  "notes": "Oklahoma: tangible goods (flowers, plants, cards) are taxable; a separately-stated delivery service is seeded exempt. Delivery is just a catalog line — no special core handling."
+}

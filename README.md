@@ -1,68 +1,81 @@
-# Local-First App Kit
+# Local-First App Kit — OKC Edition
 
-A domain-agnostic template for a **local-first desktop point-of-sale / business app** for a
-single-location small business. Fully offline — no cloud, no accounts.
+**One core. Many storefronts. Documentation a human *and* a machine can both trust.**
 
-It ships one universal core — *catalog of priced things → cart → paid transaction → receipt →
-dashboard* — and you brand it for a specific business by applying **one domain pack**. The core
-code is identical across domains; only the domain pack changes.
+A production-grade template for a **local-first desktop point-of-sale app** for a single-location
+small business. It runs fully offline on one PC — no cloud, no accounts, no network exposure — and
+it ships with four ready-to-brand **Oklahoma City** storefronts.
 
-## Architecture
+The core is universal: *catalog of priced things → cart → paid transaction → receipt → dashboard.*
+You brand it by applying **one domain pack**. The core source never changes between domains.
 
-- **Electron shell** (Node main process): window, spawns the backend sidecar, polls `/health`,
-  exposes a minimal IPC bridge for print / save-PDF.
-- **Deno + Hono backend**: HTTP API bound strictly to `127.0.0.1`, SQLite via `node:sqlite`
-  (no native build), all money math server-side.
-- **Vite + React + TypeScript + Tailwind renderer**: touch-friendly UI talking to the backend
-  over loopback.
-
-Packaging: `deno compile` produces a single self-contained backend exe; `electron-builder`
-bundles it and produces a Windows NSIS installer. The target PC needs neither Deno nor Node.
-
-## Supported domain packs
-
-`instructions.json → domainPacks` currently includes:
-
-| Pack          | App name         | Example categories                                   |
-|---------------|------------------|------------------------------------------------------|
-| `tire_shop`   | Rivera Tire POS  | New/Used Tires, Service, TPMS, Alignment, Fees       |
-| `hair_salon`  | Salon POS        | Haircuts, Color, Styling, Treatments, Retail         |
-| `barber_shop` | Barber Shop POS  | Haircuts, Beard & Shave, Kids & Seniors, Retail      |
-| `detail_shop` | Detail Shop POS  | Packages, Exterior, Interior, Protection, Fees       |
-| `flower_shop` | Flower Shop POS  | Bouquets, Arrangements, Plants, Delivery, Fees       |
-
-## Building a new domain
-
-`instructions.json` is the full spec for an LLM coding agent. Read it top to bottom, build the
-core exactly as specified, then apply one domain pack. Customization is limited to:
-
-1. `backend/db.ts` `seed()` — settings defaults + `SEED_CATALOG`.
-2. `renderer/src/catalog-meta.ts` — `CATEGORIES` presets + `COLORS` palette.
-3. Brand accent color — `renderer/src/index.css` `--brand-*` CSS vars.
-4. Logo — run `scripts/embed-logo.mjs` to bake it into `backend/logo.ts` and copy it to the renderer.
-5. `package.json` — `name`, `description`, `build.appId`, `build.productName`, `build.nsis.shortcutName`.
-6. Optional UI relabeling (e.g. tab `Register` → `Checkout`) and receipt wording.
-
-To add a brand-new domain, append a pack under `instructions.json → domainPacks` (see
-`barber_shop` for the shape) — do not fork the core.
-
-## Tasks
-
-Backend (Deno):
-
-```sh
-deno task dev            # watch + run backend on 127.0.0.1
-deno task test           # backend tests
-deno task build:backend  # compile the Windows sidecar exe (dist/app-backend.exe)
+```
+┌──────────────── Electron shell (Node) ────────────────┐
+│ window · picks a free 127.0.0.1 port · spawns the     │
+│ Deno sidecar · polls /health · print & save-PDF IPC   │
+└───────┬───────────────────────────────────┬───────────┘
+        │ spawn (POS_PORT, POS_DB_PATH)      │ window.app bridge
+        ▼                                    ▼
+  Deno + Hono backend  ◄── fetch ──  Vite + React + Tailwind renderer
+  127.0.0.1 only · node:sqlite       Checkout · Dashboard · Catalog · Settings
+  ALL money math server-side         inline-SVG charts (no chart lib)
 ```
 
-Shell + renderer (npm):
+## What makes it Oklahoma City
+
+- **OKC tax baked in.** Default `tax_rate` is `0.08625` — the combined rate (4.5% state + 1.125%
+  county + 3.0% city). See [`docs/domains/OKC-COMPLIANCE.md`](docs/domains/OKC-COMPLIANCE.md).
+- **Oklahoma per-item taxability.** Oklahoma taxes tangible goods but exempts most personal
+  services. Tax is computed **per line** — a tax-exempt haircut plus a taxable pomade is taxed only
+  on the pomade. Every catalog item has a **Taxable** toggle.
+- **Four OKC packs out of the box:**
+
+  | Pack | Storefront | Tax posture |
+  |------|-----------|-------------|
+  | `okc-barber` | Plaza District Barber Co. | services exempt, products taxable |
+  | `okc-salon`  | Midtown Salon OKC | services exempt, products taxable |
+  | `okc-detail` | Automobile Alley Detailing | labor exempt, retail taxable |
+  | `okc-flower` | Paseo Petals | goods taxable, delivery exempt |
+
+## Quick start
 
 ```sh
-npm run dev    # vite + electron
-npm run build  # build renderer + electron
-npm run dist    # full Windows NSIS installer
+npm install                          # renderer + electron deps
+node scripts/apply-domain.mjs okc-barber   # materialize the active pack
+deno task test                       # backend tests (incl. OK per-line tax) — 12 green
+deno task docs:check                 # spec schema + frontmatter + manifest + ADR coverage
+npm run dev                          # Vite + Electron (spawns the Deno backend)
 ```
 
-See `CHANGES.md` for the changelog. Honor every entry in `instructions.json → constraints` —
-each encodes a real bug fixed in the reference implementation.
+Switch storefronts anytime: `node scripts/apply-domain.mjs okc-flower`. Only generated files
+change — the core source is byte-identical. Full steps in [`docs/runbooks/BUILD.md`](docs/runbooks/BUILD.md).
+
+## Meta documentation (docs for humans **and** AI)
+
+Documentation here is a first-class product, written twice in one file: machine-parseable
+frontmatter for an agent, prose for a person. Start at [`docs/INDEX.md`](docs/INDEX.md) (humans) or
+[`docs/AGENTS.md`](docs/AGENTS.md) (AI agents). Highlights:
+
+- **`instructions.json`** — the authoritative AI build spec, validated against a JSON Schema in CI.
+- **Architecture Decision Records** — one per `constraints[]` entry, **generated** from the spec
+  (`scripts/gen-adrs.mjs`). Each constraint is a real bug already paid for once.
+- **The dual-audience frontmatter contract** ([`docs/meta/FRONTMATTER.md`](docs/meta/FRONTMATTER.md)),
+  enforced by `scripts/validate-docs.mjs`.
+
+The whole docs system is verifiable: `deno task docs:check` fails if the spec drifts, a doc loses
+its frontmatter, a pack is invalid, or an ADR falls out of sync.
+
+## Repository map
+
+```
+backend/    Deno + Hono API, node:sqlite, server-side money, receipts, tests
+electron/   main + preload (CommonJS); sidecar spawn, health poll, print/PDF IPC
+renderer/   React + Vite + Tailwind UI (Checkout, Dashboard, Catalog, Settings)
+domains/    okc-{barber,salon,detail,flower}/pack.json + the pack JSON Schema
+scripts/    apply-domain · gen-adrs · validate-docs · embed-logo · write-electron-cjs
+docs/       the meta-documentation system (meta · spec · architecture · adr · domains · runbooks)
+instructions.json   the machine-readable build spec
+```
+
+See [`CHANGES.md`](CHANGES.md) for the changelog. Honor every entry in
+`instructions.json → constraints` — each encodes a real, fixed bug.

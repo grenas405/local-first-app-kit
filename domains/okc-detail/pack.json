@@ -1,0 +1,28 @@
+{
+  "pack": "okc-detail",
+  "appName": "Automobile Alley Detailing",
+  "appId": "com.example.okcdetail",
+  "registerLabel": "Checkout",
+  "brand": { "from": "#0c4a6e", "via": "#0369a1", "to": "#38bdf8" },
+  "settings": {
+    "business_name": "Automobile Alley Detailing",
+    "business_address": "900 N Broadway Ave\nOklahoma City, OK 73102",
+    "business_phone": "(405) 555-0164",
+    "tax_rate": "0.08625",
+    "receipt_footer": "Thanks for keeping it clean, OKC.\nAsk about our monthly maintenance plans."
+  },
+  "categories": ["Packages", "Exterior", "Interior", "Add-ons", "Protection", "Retail Products", "Fees"],
+  "colors": ["#0369a1", "#0c4a6e", "#0284c7", "#075985", "#38bdf8", "#1d4ed8"],
+  "seedCatalog": [
+    { "name": "Express Wash", "category": "Packages", "price_cents": 3000, "taxable": false },
+    { "name": "Full Detail", "category": "Packages", "price_cents": 18000, "taxable": false },
+    { "name": "Wax & Polish", "category": "Exterior", "price_cents": 8000, "taxable": false },
+    { "name": "Clay Bar Treatment", "category": "Exterior", "price_cents": 6000, "taxable": false },
+    { "name": "Interior Shampoo", "category": "Interior", "price_cents": 9000, "taxable": false },
+    { "name": "Pet Hair Removal", "category": "Add-ons", "price_cents": 3500, "taxable": false },
+    { "name": "Ceramic Coating", "category": "Protection", "price_cents": 50000, "taxable": false },
+    { "name": "Air Freshener", "category": "Retail Products", "price_cents": 800, "taxable": true },
+    { "name": "Microfiber Towel 3-pack", "category": "Retail Products", "price_cents": 1500, "taxable": true }
+  ],
+  "notes": "Labor/detailing services are seeded exempt; tangible retail goods are taxable. Oklahoma service taxability has nuances — confirm with the owner (see docs/domains/OKC-COMPLIANCE.md)."
+}

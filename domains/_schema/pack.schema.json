@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://local-first-app-kit/domains/_schema/pack.schema.json",
+  "title": "Domain Pack",
+  "description": "An executable domain pack. scripts/apply-domain.mjs validates a pack against this schema, then materializes the per-domain files the core imports. This is the ONLY thing that changes between OKC storefronts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["pack", "appName", "appId", "brand", "settings", "categories", "seedCatalog"],
+  "properties": {
+    "pack": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Folder-name id, e.g. okc-barber."
+    },
+    "appName": { "type": "string" },
+    "appId": {
+      "type": "string",
+      "pattern": "^[a-z0-9.]+$",
+      "description": "Reverse-DNS bundle id for electron-builder, e.g. com.example.okcbarber."
+    },
+    "registerLabel": {
+      "type": "string",
+      "description": "What the checkout tab is called for this domain (e.g. Checkout, Register)."
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "via", "to"],
+      "description": "Brand gradient stops; drive --brand-* CSS vars and the receipt TOTAL bar.",
+      "properties": {
+        "from": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "via": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "to": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["business_name", "tax_rate"],
+      "properties": {
+        "business_name": { "type": "string" },
+        "business_address": { "type": "string" },
+        "business_phone": { "type": "string" },
+        "tax_rate": {
+          "type": "string",
+          "pattern": "^0(\\.[0-9]+)?$",
+          "description": "Fraction string in [0,1]. OKC combined default is 0.08625."
+        },
+        "receipt_footer": { "type": "string" }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "colors": {
+      "type": "array",
+      "description": "Optional catalog-button color palette.",
+      "items": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+    },
+    "seedCatalog": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "category", "price_cents", "taxable"],
+        "properties": {
+          "name": { "type": "string" },
+          "category": { "type": "string" },
+          "price_cents": { "type": "integer", "minimum": 0 },
+          "taxable": {
+            "type": "boolean",
+            "description": "Oklahoma: tangible retail goods are taxable; most personal services are exempt."
+          },
+          "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "logo": {
+      "type": "string",
+      "description": "Logo filename within the pack folder, baked into receipts + header."
+    },
+    "notes": { "type": "string" }
+  }
+}

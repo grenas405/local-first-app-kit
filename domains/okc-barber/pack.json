@@ -1,0 +1,29 @@
+{
+  "pack": "okc-barber",
+  "appName": "Plaza District Barber Co.",
+  "appId": "com.example.okcbarber",
+  "registerLabel": "Checkout",
+  "brand": { "from": "#0f172a", "via": "#1e293b", "to": "#b45309" },
+  "settings": {
+    "business_name": "Plaza District Barber Co.",
+    "business_address": "1700 NW 16th St\nOklahoma City, OK 73106",
+    "business_phone": "(405) 555-0142",
+    "tax_rate": "0.08625",
+    "receipt_footer": "Look sharp, OKC.\nWalk-ins welcome — Plaza District."
+  },
+  "categories": ["Haircuts", "Beard & Shave", "Kids & Seniors", "Add-ons", "Retail Products", "Fees"],
+  "colors": ["#0f172a", "#b45309", "#334155", "#92400e", "#475569", "#a16207"],
+  "seedCatalog": [
+    { "name": "Haircut", "category": "Haircuts", "price_cents": 3000, "taxable": false },
+    { "name": "Haircut & Beard", "category": "Haircuts", "price_cents": 4000, "taxable": false },
+    { "name": "Skin Fade", "category": "Haircuts", "price_cents": 3500, "taxable": false },
+    { "name": "Beard Trim", "category": "Beard & Shave", "price_cents": 1500, "taxable": false },
+    { "name": "Hot Towel Shave", "category": "Beard & Shave", "price_cents": 3000, "taxable": false },
+    { "name": "Kids Cut (12 & under)", "category": "Kids & Seniors", "price_cents": 2000, "taxable": false },
+    { "name": "Senior Cut", "category": "Kids & Seniors", "price_cents": 2000, "taxable": false },
+    { "name": "Line-up / Edge-up", "category": "Add-ons", "price_cents": 1000, "taxable": false },
+    { "name": "Pomade", "category": "Retail Products", "price_cents": 1800, "taxable": true },
+    { "name": "Beard Oil", "category": "Retail Products", "price_cents": 2200, "taxable": true }
+  ],
+  "notes": "Oklahoma: barbering services are exempt; retail grooming products are taxable. Tips are common — add an optional tip_cents column via addColumnIfMissing if requested."
+}
